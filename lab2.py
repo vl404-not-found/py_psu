@@ -1,6 +1,8 @@
 from loremipsum import get_sentences
 import random
 
+from pip._vendor.msgpack.fallback import xrange
+
 
 def iter_func(k):
     global iter_operations
@@ -46,6 +48,33 @@ def zzz_inline_search(_list, str_y):
                 raise BaseException('Not found')
             else:
                 print(f'\n {str_y} find at: {iter_inline}')
+
+
+def prefix(_str):
+    v = [0] * len(_str)
+    for i in xrange(1, len(_str)):
+        k = v[i - 1]
+        while k > 0 and _str[k] != _str[i]:
+            k = v[k - 1]
+        if _str[k] == _str[i]:
+            k = k + 1
+        v[i] = k
+    return v
+
+
+def kmp(_str, _list):
+    index = -1
+    f = prefix(_str)
+    k = 0
+    for i in xrange(len(_list)):
+        while k > 0 and _str[k] != _list[i]:
+            k = f[k - 1]
+        if _str[k] == _list[i]:
+            k = k + 1
+        if k == len(_str):
+            index = i - len(_str) + 1
+            break
+    return index
 
 
 if __name__ == '__main__':
