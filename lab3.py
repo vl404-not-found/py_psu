@@ -1,5 +1,7 @@
 # help funcs
 import math
+import uuid
+# import random
 
 
 def convert_base(num, to_base=10, from_base=10):
@@ -22,9 +24,9 @@ def _len(num):
 
 # lab funcs
 class HashArray:
-    size = 2
+    size = 4
     divider = 2
-    to_num_sys = 10
+    to_num_sys = 2
     _dict = {}
 
     def adding(self, key_a, value):
@@ -32,7 +34,7 @@ class HashArray:
         for key in self._dict.keys():
             if key_a == key:
                 flag = False
-                self._dict.update({key_a: self._dict.get(key_a).append(value)})
+                self._dict.get(key_a).append(value)
         if flag:
             self._dict.update({key_a: [value]})
 
@@ -41,7 +43,7 @@ class HashArray:
         self.adding(conv, num)
 
     def add_num_sys(self, num):
-        conv = convert_base(self.divider, self.to_num_sys)
+        conv = int(str(convert_base(num, self.to_num_sys))[:self.size])
         self.adding(conv, num)
 
     def add_num_square(self, num):
@@ -56,7 +58,7 @@ class HashArray:
         for i in str(num):
             if dec_counter != self.size:
                 dec_counter += 1
-                pre += i * 10 ** dec_counter
+                pre += int(i) * 10 ** dec_counter
             else:
                 dec_counter = 0
 
@@ -64,5 +66,37 @@ class HashArray:
 
 
 if __name__ == '__main__':
-    sss = 123456789
-    print(str(sss)[-3:])
+
+    array = HashArray()
+    with open('example.txt', 'r') as f:
+        for i in f.readlines():
+            array.add_num_square(int(i))
+        f.close()
+
+    array = HashArray()
+    with open('example.txt', 'r') as f:
+        for i in f.readlines():
+            array.add_coagulation(int(i))
+        f.close()
+
+    array = HashArray()
+    with open('example.txt', 'r') as f:
+        for i in f.readlines():
+            array.add_num_sys(int(i))
+        f.close()
+
+    array = HashArray()
+    with open('example.txt', 'r') as f:
+        for i in f.readlines():
+            array.add_num_divider(int(i))
+        f.close()
+
+    print(array._dict)
+
+# with open('example.txt', 'w') as f:
+#     for i in range(10000):
+#         if i < 1:
+#             f.write(str(random.randint(0, 3200)))
+#         else:
+#             f.write("\n" + str(random.randint(0, 3200)))
+
