@@ -1,6 +1,5 @@
 # help funcs
 import math
-import uuid
 # import random
 
 
@@ -55,10 +54,10 @@ class HashArray:
     def add_coagulation(self, num):
         pre = 0
         dec_counter = 0
-        for i in str(num):
+        for a_iter in str(num):
             if dec_counter != self.size:
                 dec_counter += 1
-                pre += int(i) * 10 ** dec_counter
+                pre += int(a_iter) * 10 ** dec_counter
             else:
                 dec_counter = 0
 
@@ -91,12 +90,9 @@ if __name__ == '__main__':
             array.add_num_divider(int(i))
         f.close()
 
-    print(array._dict)
-
 # with open('example.txt', 'w') as f:
 #     for i in range(10000):
 #         if i < 1:
 #             f.write(str(random.randint(0, 3200)))
 #         else:
 #             f.write("\n" + str(random.randint(0, 3200)))
-
