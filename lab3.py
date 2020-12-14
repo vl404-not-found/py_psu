@@ -114,11 +114,16 @@ if __name__ == '__main__':
             array.add_num_square(int(i))
         f.close()
 
+    for i in array._dict.keys():
+        print('%s -> %s' % (i, array._dict.get(i)))
+
     array = HashArray()
     with open('example.txt', 'r') as f:
         for i in f.readlines():
             array.add_coagulation(int(i))
         f.close()
+
+    # print(array._dict)
 
     array = HashArray()
     with open('example.txt', 'r') as f:
@@ -126,8 +131,12 @@ if __name__ == '__main__':
             array.add_num_sys(int(i))
         f.close()
 
+    # print(array._dict)
+
     array = HashArray()
     with open('example.txt', 'r') as f:
         for i in f.readlines():
             array.add_num_divider(int(i))
         f.close()
+
+    # print(array._dict)
