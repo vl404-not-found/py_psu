@@ -138,5 +138,3 @@ if __name__ == '__main__':
         for i in f.readlines():
             array.add_num_divider(int(i))
         f.close()
-
-    # print(array._dict)

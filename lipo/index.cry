@@ -1,0 +1,5 @@
+Var first, i, x;
+first = 5;
+i = 6;
+x = first + i;
+print(x);
