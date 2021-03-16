@@ -9,10 +9,9 @@ class Parser:
         self.pg = ParserGenerator(
             [
                 'NUMBER', 'SUM', 'SUB', 'SEMI_COLON',
-                # 'ASSIGN', 'PRINT',
-                # 'COMMA', 'MUL',
-                # 'VALUE_SETTER', 'OPEN_PAREN',
-                # 'CLOSE_PAREN', 'VAR'
+                'PRINT', 'VAR'
+                'COMMA', 'MUL', 'ASSIGN', 'VALUE_SETTER',
+                'OPEN_PAREN', 'CLOSE_PAREN',
             ]
         )
 
@@ -20,6 +19,12 @@ class Parser:
         @self.pg.production('expression : NUMBER')
         def number(p):
             return Number(p[0].value)
+
+        # TODO: Допиши эту дрянь! (посмотри как правильно хранить переменные)
+        @self.pg.production('expression : ASSIGN VAR VALUE_SETTER expression')
+        def setter(p):
+            print(p)
+            return
 
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')
@@ -29,16 +34,10 @@ class Parser:
             if p[1].gettokentype() == 'SUB':
                 return Sub(p[0], p[2])
 
-        @self.pg.production('expression : expression SEMI_COLON')
-        def string(p):
-            print(p)
-            return ExecuteString(p[0])
-        # @self.pg.production('program : PRINT OPEN_PAREN expression CLOSE_PAREN SEMI_COLON')
-        # def ex(p):
-        #     return Print(p)
-        # @self.pg.production('program : PRINT OPEN_PAREN expression CLOSE_PAREN SEMI_COLON')
-        # def program(p):
-        #     return Print(p[2])
+        @self.pg.production('expression : PRINT OPEN_PAREN expression CLOSE_PAREN SEMI_COLON')
+        def ex(p):
+            return Print(p[2])
+
         #
         # @self.pg.production(r'ASSIGN \w NUMBER \w')
         # def ex_assignee(p):
@@ -60,7 +59,7 @@ class Parser:
         #     self.variables.update(p)
         # # @self.pg.production('Var expression : NUMBER')
         # # def var_assign():
-        #
+
         @self.pg.error
         def error_handle(token):
             raise ValueError(token)

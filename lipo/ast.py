@@ -13,7 +13,8 @@ class ExecuteString:
         self.value = value
 
     def eval(self):
-        return self.value.eval()
+        print(self.value)
+        return self.value[0]
 
 
 class BinaryOp:
