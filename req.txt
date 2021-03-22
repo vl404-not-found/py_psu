@@ -1,0 +1,4 @@
+certifi==2020.12.5
+llvmlite==0.36.0rc2
+rply==0.7.7
+wincertstore==0.2
