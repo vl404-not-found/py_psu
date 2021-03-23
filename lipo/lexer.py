@@ -8,13 +8,13 @@ class Lexer:
     def _add_tokens(self):
         self.lexer.ignore(r'\s+')
 
-        self.lexer.add('ASSIGN', r'Var')
         self.lexer.add('PRINT', r'print')
+        self.lexer.add('ASSIGN', r'Var')
         self.lexer.add('SEMI_COLON', r'\;')
         self.lexer.add('COMMA', r',')
         self.lexer.add('SUB', r'\-')
         self.lexer.add('SUM', r'\+')
-        self.lexer.add('MUL', r'\*')
+        # self.lexer.add('MUL', r'\*')
         self.lexer.add('VALUE_SETTER', r'=')
         self.lexer.add('NUMBER', r'\d+')
         self.lexer.add('OPEN_PAREN', r'\(')

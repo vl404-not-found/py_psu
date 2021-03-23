@@ -1,20 +1,9 @@
-
-
 class Number:
     def __init__(self, value):
         self.value = value
 
     def eval(self):
         return int(self.value)
-
-
-class ExecuteString:
-    def __init__(self, value):
-        self.value = value
-
-    def eval(self):
-        print(self.value)
-        return self.value[0]
 
 
 class BinaryOp:
@@ -39,3 +28,11 @@ class Print:
 
     def eval(self):
         print(self.value.eval())
+
+
+class Empty:
+    def __init__(self):
+        pass
+
+    def eval(self):
+        pass
