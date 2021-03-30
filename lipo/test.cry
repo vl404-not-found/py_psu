@@ -1,1 +1,2 @@
-Var fdd = 5;
+Var e = 7;
+print(e + 1);

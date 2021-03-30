@@ -36,3 +36,11 @@ class Empty:
 
     def eval(self):
         pass
+
+
+class Variable:
+    def __init__(self, value):
+        self.value = value
+
+    def eval(self):
+        return int(self.value)

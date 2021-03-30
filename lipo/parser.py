@@ -1,5 +1,5 @@
 from rply import ParserGenerator
-from ast import Number, Sum, Sub, Print, Empty
+from ast import Number, Sum, Sub, Print, Variable, Empty
 
 
 class Parser:
@@ -21,24 +21,28 @@ class Parser:
         def number(p):
             return Number(p[0].value)
 
+        @self.pg.production('expression : VAR')
+        def variable(p):
+            return Variable(self.variables.get(p[0].value))
+
         # @self.pg.production('expression : VAR')
         # def number(p):
         #     return Number(self.variables.get(p[0].value))
 
-        @self.pg.production('values : VAR VALUE_SETTER expression')
+        # @self.pg.production("program : statement program")
+        # @self.pg.production("main : expression")
+        # def main(p):
+        #     return p[0]
+
+        @self.pg.production('expression : VAR VALUE_SETTER expression SEMI_COLON')
         def update(p):
             self.variables.update({p[0].value: p[2].value})
-            return Number(self.variables.get(p[0].value))
+            return Empty()
 
-        @self.pg.production('expression : ASSIGN VAR SEMI_COLON')
-        @self.pg.production('expression : ASSIGN values SEMI_COLON')
+        @self.pg.production('expression : ASSIGN VAR VALUE_SETTER expression SEMI_COLON')
         def setter(p):
-            try:
-                if p[1].gettokentype() == 'VAR':
-                    self.variables.update({p[1].value: 0})
-                    return Number(self.variables.get(p[1].value))
-            except AttributeError:
-                return Number(self.variables.get(p[1].value))
+            self.variables.update({p[1].value: p[3].eval()})
+            return Empty()
 
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')
@@ -48,14 +52,9 @@ class Parser:
             if p[1].gettokentype() == 'SUB':
                 return Sub(p[0], p[2])
 
-        @self.pg.production('expression : PRINT OPEN_PAREN VAR CLOSE_PAREN SEMI_COLON')
         @self.pg.production('expression : PRINT OPEN_PAREN expression CLOSE_PAREN SEMI_COLON')
-        def ex(p):
-            try:
-                if p[2].gettokentype() == 'VAR':
-                    return Print(self.variables.get(p[2].value))
-            except AttributeError:
-                return Print(p[2])
+        def printing(p):
+            return Print(p[2])
 
         @self.pg.error
         def error_handle(token):
