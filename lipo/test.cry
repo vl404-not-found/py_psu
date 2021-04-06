@@ -1,4 +1,4 @@
 Var first = 7;
-Var second = 4;
+Var second = 41;
 first = 1;
 second = first + 2;

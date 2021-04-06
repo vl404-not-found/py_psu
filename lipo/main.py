@@ -14,8 +14,9 @@ if __name__ == '__main__':
         lines = file.read().splitlines()
         for line in lines:
             tokens = lexer.lex(line)
-            # parser.parse(tokens).eval()
-            with open('out/lex.csv', 'w+') as f:
-                for t in tokens:
-                    lex += f' {t.name} , {t.value} \n'
-                f.writelines(lex)
+            # code2csvLexList
+            # with open('out/lex.csv', 'w+') as f:
+            #     for t in tokens:
+            #         lex += f' {t.name} , {t.value} \n'
+            #     f.writelines(lex)
+            parser.parse(tokens).eval()

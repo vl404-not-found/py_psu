@@ -6,7 +6,7 @@
  ASSIGN , Var 
  VAR , second 
  VALUE_SETTER , = 
- NUMBER , 4 
+ NUMBER , 41 
  SEMI_COLON , ; 
  VAR , first 
  VALUE_SETTER , = 
