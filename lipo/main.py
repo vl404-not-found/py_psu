@@ -8,15 +8,14 @@ if __name__ == '__main__':
     pg.parse()
     parser = pg.get_parser()
     lexer = Lexer().get_lexer()
+    lex = ''
 
     with open(file_name) as file:
-        # input_file = file.read()
         lines = file.read().splitlines()
         for line in lines:
-            # print(line)
             tokens = lexer.lex(line)
-            parser.parse(tokens).eval()
-        file.close()
-
-    # for t in token:
-    #     print(f'Тип {t.name}, значение {t.value}')
+            # parser.parse(tokens).eval()
+            with open('out/lex.csv', 'w+') as f:
+                for t in tokens:
+                    lex += f' {t.name} , {t.value} \n'
+                f.writelines(lex)

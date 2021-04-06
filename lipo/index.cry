@@ -1,4 +1,6 @@
-Var first, i, x;
+Var first;
+Var i;
+Var x;
 first = 5;
 i = 6;
 x = first + i;

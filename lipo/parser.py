@@ -10,7 +10,7 @@ class Parser:
         self.pg = ParserGenerator(
             [
                 'NUMBER', 'SUM', 'SUB', 'SEMI_COLON',
-                'PRINT', 'VAR',
+                'PRINT', 'VAR', 'MUL', 'DIV',
                 'ASSIGN', 'VALUE_SETTER',
                 'OPEN_PAREN', 'CLOSE_PAREN',
             ]
@@ -25,18 +25,9 @@ class Parser:
         def variable(p):
             return Variable(self.variables.get(p[0].value))
 
-        # @self.pg.production('expression : VAR')
-        # def number(p):
-        #     return Number(self.variables.get(p[0].value))
-
-        # @self.pg.production("program : statement program")
-        # @self.pg.production("main : expression")
-        # def main(p):
-        #     return p[0]
-
         @self.pg.production('expression : VAR VALUE_SETTER expression SEMI_COLON')
         def update(p):
-            self.variables.update({p[0].value: p[2].value})
+            self.variables.update({p[0].value: p[2].eval()})
             return Empty()
 
         @self.pg.production('expression : ASSIGN VAR VALUE_SETTER expression SEMI_COLON')
@@ -46,10 +37,16 @@ class Parser:
 
         @self.pg.production('expression : expression SUM expression')
         @self.pg.production('expression : expression SUB expression')
+        @self.pg.production('expression : expression MUL expression')
+        @self.pg.production('expression : expression DIV expression')
         def pro(p):
             if p[1].gettokentype() == 'SUM':
                 return Sum(p[0], p[2])
             if p[1].gettokentype() == 'SUB':
+                return Sub(p[0], p[2])
+            if p[1].gettokentype() == 'MUL':
+                return Sub(p[0], p[2])
+            if p[1].gettokentype() == 'DIV':
                 return Sub(p[0], p[2])
 
         @self.pg.production('expression : PRINT OPEN_PAREN expression CLOSE_PAREN SEMI_COLON')
