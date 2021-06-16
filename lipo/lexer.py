@@ -6,10 +6,10 @@ class Lexer:
         self.lexer = LexerGenerator()
 
     def _add_tokens(self):
-        self.lexer.ignore(r'\s+')
-
         self.lexer.add('PRINT', r'print')
         self.lexer.add('ASSIGN', r'Var')
+        self.lexer.add('VAR', r'[a-zA-Z]+')
+
         self.lexer.add('SEMI_COLON', r'\;')
         self.lexer.add('COMMA', r',')
         self.lexer.add('SUB', r'\-')
@@ -20,7 +20,8 @@ class Lexer:
         self.lexer.add('NUMBER', r'\d+')
         self.lexer.add('OPEN_PAREN', r'\(')
         self.lexer.add('CLOSE_PAREN', r'\)')
-        self.lexer.add('VAR', r'[a-zA-Z]+')
+
+        self.lexer.ignore(r'\s+')
 
     def get_lexer(self):
         self._add_tokens()

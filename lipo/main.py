@@ -7,18 +7,17 @@ if __name__ == '__main__':
     pg = PrParser()
     pg.parse()
     parser = pg.get_parser()
-    # lexer = Lexer().get_lexer()
-    # lex = ''
-    #
-    # with open(file_name) as file:
-    #     lines = file.read().splitlines()
-    #     for line in lines:
-    #         tokens = lexer.lex(line)
+    lexer = Lexer().get_lexer()
+    lex = ''
+
+    with open(file_name) as file:
+        lines = file.read().splitlines()
+        for line in lines:
+            tokens = lexer.lex(line)
             # code2csvLexList
-            # with open('out/lex1.csv', 'w+') as f:
+            # with open('out/test.csv', 'w+') as f:
             #     for t in tokens:
             #         lex += f' {t.name} | {t.value} \n'
             #     f.writelines(lex)
             #     print(lex)
-
-            # parser.parse(tokens).eval()
+            print(parser.parse(tokens))
